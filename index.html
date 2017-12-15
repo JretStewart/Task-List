@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <title>Task List</title>
+</head>
+<body style="text-align:center;">
+    <nav>
+        <div class="nav-wrapper purple darken-4">
+            <a class="brand-logo center">Task List</a>
+        </div>
+    </nav>
+    <ul></ul>
+
+    <button id="btn" class="btn waves-effect waves-light" type="submit" name="action">Save List</button>
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+        const ul = document.querySelector('ul');
+
+        ipcRenderer.on('item:add', function(e, item){
+            ul.className = 'collection blue lighten-4';
+            const li = document.createElement('li');
+            li.className = 'collection-item blue lighten-4';
+            const itemText = document.createTextNode(item);
+            li.appendChild(itemText);
+            ul.appendChild(li);
+        });
+
+        ipcRenderer.on('item:clear', function(){
+            ul.innerHTML = '';
+            ul.className = '';
+        });
+
+        ul.addEventListener('dblclick', removeItem);
+
+        function removeItem(e){
+            e.target.remove();
+            if(ul.children.length == 0){
+                ul.className = '';
+            }
+        }
+        require('./renderer.js');
+    </script>
+</body>
+</html>

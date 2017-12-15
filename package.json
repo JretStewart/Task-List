@@ -1,0 +1,15 @@
+{
+  "name": "TaskList",
+  "version": "1.0.0",
+  "description": "Electron Task List",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "Jarret Stewart",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^1.7.9"
+  }
+}
